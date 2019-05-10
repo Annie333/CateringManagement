@@ -23,15 +23,15 @@ class UserProfile(AbstractUser):
         verbose_name_plural = "用户"
 
     def __str__(self):
-        return self.name
+        return self.username
 
 
 class VerifyCode(models.Model):
-    mycode = models.CharField(max_length=10, verbose_name="验证码")
+    mycode = models.CharField(max_length=10, verbose_name="密码")
     mobile = models.CharField(max_length=11, verbose_name="电话")
 
     class Meta:
-        verbose_name = "验证码"  # 模型类的可读名称
+        verbose_name = "密码"  # 模型类的可读名称
         verbose_name_plural = verbose_name
 
         def __str__(self):

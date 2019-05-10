@@ -1,30 +1,46 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from trade.models import OrderInfo
 
 from goods.models import Goods
+from goods.models import Windows
 from datetime import datetime
 # Create your models here.
 User = get_user_model()
 
 
-class UserFav(models.Model):
+class UserGoodsFav(models.Model):
     user = models.ForeignKey(User, verbose_name="用户", on_delete=models.CASCADE)
     goods = models.ForeignKey(Goods, verbose_name="商品", on_delete=models.CASCADE)
     add_time = models.DateField(default=datetime.now(), verbose_name="添加时间")
 
     class Meta:
-        verbose_name = "用户收藏"
+        verbose_name = "用户收藏商品"
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.user.name
+        return self.user.username
+
+
+class UserWindowsFav(models.Model):
+    user = models.ForeignKey(User, verbose_name="用户", on_delete=models.CASCADE)
+    windows = models.ForeignKey(Windows, verbose_name="窗口", on_delete=models.CASCADE)
+    add_time = models.DateField(default=datetime.now(), verbose_name="添加时间")
+
+    class Meta:
+        verbose_name = "用户收藏窗口"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.user.username
 
 
 class LeavingMessage(models.Model):
     MESSAGE_CHOICE = (
-        (1, "留言"), (2, "投诉"), (3, "询问"), (4, "售后"), (5, "求购"))
+        ("1", "留言"), ("2", "投诉"), ("3", "询问"), ("4", "售后"), ("5", "求购"))
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="用户")
-    msg_type = models.CharField(max_length=1, choices=MESSAGE_CHOICE, default=1, help_text="留言类型1(留言),2(投诉),3,(询"
+    windows = models.ForeignKey(Windows, on_delete=models.CASCADE, verbose_name="窗口")
+    msg_type = models.CharField(max_length=2, choices=MESSAGE_CHOICE, default="1", help_text="留言类型1(留言),2(投诉),3,(询"
                                                                                            "问),4(售后),5(求购)",
                                 verbose_name="留言类型")
     message = models.TextField(default="", verbose_name="留言内容", help_text="留言内容")

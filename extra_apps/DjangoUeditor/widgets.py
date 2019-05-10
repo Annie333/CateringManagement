@@ -5,8 +5,8 @@ from django.contrib.admin.widgets import AdminTextareaWidget
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.http import urlencode
-import DUEditor.settings as USettings
-from  DUEditor.commands import *
+import DjangoUeditor.settings as USettings
+from  DjangoUeditor.commands import *
 
 # 修正输入的文件路径,输入路径的标准格式：abc,不需要前后置的路径符号
 #如果输入的路径参数是一个函数则执行，否则可以拉接受时间格式化，用来生成如file20121208.bmp的重命名格式
@@ -32,11 +32,11 @@ class UEditorWidget(forms.Textarea):
 
         params=attrs.copy()
 
-        width=params.pop("width")
-        height=params.pop("height")
-        toolbars=params.pop("toolbars","full")
-        imagePath=params.pop("imagePath","")
-        filePath=params.pop("filePath","")
+        width = params.pop("width")
+        height = params.pop("height")
+        toolbars = params.pop("toolbars","full")
+        imagePath = params.pop("imagePath","")
+        filePath = params.pop("filePath","")
         upload_settings=params.pop("upload_settings",{})
         settings=params.pop("settings",{})
         command=params.pop("command",None)

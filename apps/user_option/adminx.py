@@ -2,21 +2,34 @@
 # encoding: utf-8
 
 import xadmin
-from .models import UserFav, LeavingMessage, UserAddress
+from .models import UserGoodsFav, LeavingMessage, UserAddress, UserWindowsFav
 
 
-class UserFavAdmin(object):
+class UserGoodsFavAdmin(object):
     list_display = ['user', 'goods', "add_time"]
+    search_fields = ["goods__name", "user__name"]
+    list_filter = ['user__name', 'goods__name', "add_time"]
+
+
+class UserWindowsFavAdmin(object):
+    list_display = ['user', 'windows', "add_time"]
+    search_fields = ["windows__name", "user__name"]
+    list_filter = ['user__name', 'windows__name', "add_time"]
 
 
 class UserLeavingMessageAdmin(object):
-    list_display = ['user', 'msg_type', "message", "add_time"]
+    list_display = ['user', 'msg_type', "message", "add_time", "windows", "subject"]
+    search_fields = ['user__name', 'msg_type', "message", "windows__name", "subject"]
+    list_filter = ['user__name', 'msg_type', "message", "windows__name", "subject"]
 
 
 class UserAddressAdmin(object):
     list_display = ["signer_name", "signer_mobile", "district", "address"]
+    search_fields = ["signer_name", "signer_mobile", "district", "address"]
+    list_filter = ["signer_name", "signer_mobile", "district", "address"]
 
 
-xadmin.site.register(UserFav, UserFavAdmin)
+xadmin.site.register(UserGoodsFav, UserGoodsFavAdmin)
 xadmin.site.register(UserAddress, UserAddressAdmin)
 xadmin.site.register(LeavingMessage, UserLeavingMessageAdmin)
+xadmin.site.register(UserWindowsFav, UserWindowsFavAdmin)
