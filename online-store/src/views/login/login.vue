@@ -71,7 +71,7 @@
       }).then((response)=> {
             console.log(response);
             //本地存储用户信息
-            cookie.setCookie('name',this.userName,7);
+            cookie.setCookie('name',this.userName,7);//过期时间为7天
             cookie.setCookie('token',response.data.token,7)
             //存储在store
             // 更新store数据
