@@ -22,6 +22,7 @@ from rest_framework.documentation import include_docs_urls
 from CateringManagement.settings import MEDIA_ROOT
 from django.views.static import serve
 from goods.views import GoodsListViewSet, PlaceCategoryViewSet, WindowsListViewSet
+from users.views import UserViewSet
 import xadmin
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
@@ -30,6 +31,7 @@ router = DefaultRouter()
 router.register(r'goods', GoodsListViewSet, base_name="goods")
 router.register(r'categorys', PlaceCategoryViewSet, base_name="categorys")
 router.register(r'windows', WindowsListViewSet, base_name="windows")
+router.register(r'users', UserViewSet, base_name="users")
 goods_list = GoodsListViewSet.as_view({
     'get': 'list',
 })

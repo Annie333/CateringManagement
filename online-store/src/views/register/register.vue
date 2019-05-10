@@ -20,13 +20,12 @@
                     <p class="error-text marb8" v-show="error.mobile">{{error.mobile}}</p>
 
                     <div class="clearfix">
-                        <div class="form-group marb8 verify-code">
-                            <label>短信验证码</label>
-                            <input id="jsPhoneRegCaptcha" v-model="code" type="text" placeholder="输入手机验证码">
+                        <div class="form-group marb8 verify-identities">
+                            <label>身份号码</label>
+                            <input id="jsidentities" v-model="identities" type="text" placeholder="请输入学生证号、教职工证号">
                         </div>
-                        <input class="verify-code-btn sendcode" type="button" id="jsSendCode" @click="seedMessage" :value="getMessageText">
+                        <p class="error-text marb8" v-show="error.identities">{{error.identities}}</p>
                     </div>
-                     <p class="error-text marb8" v-show="error.code">{{error.code}}</p>
 
                     <div class="form-group marb8">
                         <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
@@ -53,16 +52,15 @@ import cookie from '../../static/js/cookie';
 export default{
     data(){
         return{
-            getMessageText:"免费获取验证码",
             mobile:'',
             password:'',
             username:'' ,
-            code:'',
+            identities:'',
             error:{
                 mobile:'',
                 password:'',
                 username:'' ,
-                code:'',
+                identities:'',
             }
         }
     },
@@ -72,7 +70,7 @@ export default{
             register({
                 password:that.password,
                 username:that.mobile ,
-                code:that.code,
+                identities:that.identities,
             }).then((response)=> {
               cookie.setCookie('name',response.data.username,7);
               cookie.setCookie('token',response.data.token,7)
@@ -87,37 +85,37 @@ export default{
             that.error.mobile = error.username?error.username[0]:'';
             that.error.password = error.password?error.password[0]:'';
             that.error.username = error.mobile?error.mobile[0]:'';
-            that.error.code = error.code?error.code[0]:'';
+            that.error.identities = error.identities?error.identities[0]:'';
           });
         },
-        seedMessage(){
-            var that = this;
-            //开启倒计时
-            var countdown=60;
-             settime()
-            function settime() {
-                if (countdown == 0) {
-                    that.getMessageText="免费获取验证码";
-                    countdown = 60;
-                    return;
-                } else {
-                    that.getMessageText="重新发送(" + countdown + ")";
-                    countdown--;
-                }
-                setTimeout(function() {
-                    settime()
-                 },1000)
-                }
-            getMessage({
-                    mobile:that.mobile
-                }).then((response)=> {
+        // seedMessage(){
+        //     var that = this;
+        //     //开启倒计时
+        //     var countdown=60;
+        //      settime()
+        //     function settime() {
+        //         if (countdown == 0) {
+        //             that.getMessageText="免费获取验证码";
+        //             countdown = 60;
+        //             return;
+        //         } else {
+        //             that.getMessageText="重新发送(" + countdown + ")";
+        //             countdown--;
+        //         }
+        //         setTimeout(function() {
+        //             settime()
+        //          },1000)
+        //         }
+        //     getMessage({
+        //             mobile:that.mobile
+        //         }).then((response)=> {
 
-              })
-              .catch(function (error) {
+        //       })
+        //       .catch(function (error) {
 
-          });
+        //   });
 
-        }
+        // }
     }
 }
 </script>
@@ -300,11 +298,11 @@ export default{
     padding:12px 10px 9px\9;
 }
 .form-box .form-group.blur,
-.form-box  .valcode.blur {
+.form-box  .validentities.blur {
     border-color: #ccc;
 }
 .form-box .form-group.errorput,
-.form-box .valcode.errorput input {
+.form-box .validentities.errorput input {
     border-color: #f00;
     box-shadow: 0 0 5px #aa0b0b;
 }
@@ -323,14 +321,14 @@ export default{
 .marb38{
     margin-bottom:38px;
 }
-.verify-code{
+.verify-identities{
     float:left;
-    width:180px;
+    width:195px;
 }
-.verify-code > input{
-    width:87px;
+.verify-identities > input{
+    width:195px;
 }
-.verify-code-btn{
+/* .verify-identities-btn{
     float:left;
     width:103px;
     margin-left:3px;
@@ -344,10 +342,10 @@ export default{
     color:#666;
     text-align: center;
     cursor: pointer;
-}
+} */
 
 .form-box .form-group.focus,
-.form-box .valcode.error {
+.form-box .validentities.error {
     border-color: #6ec558;
     box-shadow: 0 0 5px #6ec558;
 }

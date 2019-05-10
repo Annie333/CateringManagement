@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.users.apps.CateringConfig',
+    'users.apps.CateringConfig',
     'apps.goods.apps.GoodsConfig',
     'apps.trade.apps.TradeConfig',
     'apps.user_option.apps.UserOptionConfig',
@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',#请求
