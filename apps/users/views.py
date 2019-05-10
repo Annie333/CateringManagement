@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
+from rest_framework import viewsets
+from rest_framework.mixins import CreateModelMixin
 
 User = get_user_model()
 # Create your views here.
@@ -19,3 +21,9 @@ class CustomBackend(ModelBackend):
                 return user
         except Exception as e:
             return None
+
+
+class UserViewSet(CreateModelMixin, viewsets.GenericViewSet):
+    """
+    用户注册
+    """
