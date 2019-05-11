@@ -82,9 +82,9 @@ export default{
 
           })
           .catch(function (error) {
-            that.error.mobile = error.username?error.username[0]:'';
+            that.error.username = error.username?error.username[0]:'';
             that.error.password = error.password?error.password[0]:'';
-            that.error.username = error.mobile?error.mobile[0]:'';
+            that.error.mobile = error.mobile?error.mobile[0]:'';
             that.error.identities = error.identities?error.identities[0]:'';
           });
         },
@@ -323,12 +323,12 @@ export default{
 }
 .verify-identities{
     float:left;
-    width:195px;
+    width:288px;
 }
 .verify-identities > input{
     width:195px;
 }
-/* .verify-identities-btn{
+.verify-identities-btn{
     float:left;
     width:103px;
     margin-left:3px;
@@ -342,7 +342,7 @@ export default{
     color:#666;
     text-align: center;
     cursor: pointer;
-} */
+}
 
 .form-box .form-group.focus,
 .form-box .validentities.error {

@@ -9,7 +9,7 @@ class UserProfile(AbstractUser):
     name = models.CharField(max_length=30, null=True, blank=True, verbose_name="姓名")
     birthday = models.DateField(null=True, blank=True, verbose_name="出生年月")
     sex = models.CharField(max_length=6, choices=(("male", "男"), ("female", "女")), default="female", verbose_name="性别")
-    mobile = models.CharField(max_length=11, verbose_name="电话", unique=True)
+    mobile = models.CharField(max_length=11, verbose_name="电话", unique=True, null=True, blank=True)
     identities = models.CharField(max_length=9, null=True, blank=True, verbose_name="身份号码")
     enter_date = models.DateField(null=True, blank=True, verbose_name="入学时间")
 

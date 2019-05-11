@@ -40,7 +40,7 @@ class UserRegSerializer(serializers.ModelSerializer):
                                            "min_length": "格式错误"
                                        },
                                        help_text="身份号码")
-    username = serializers.CharField(required=True, allow_blank=False,
+    username = serializers.CharField(label="用户名", help_text="用户名", required=True, allow_blank=False,
                                      validators=[UniqueValidator(queryset=User.objects.all(), message="用户已经存在")])
     password = serializers.CharField(
         style={'input_type': 'password'}, help_text="密码", label="密码", write_only=True,
@@ -53,7 +53,7 @@ class UserRegSerializer(serializers.ModelSerializer):
     #     return user
 
     def validate_identities(self, identities):
-        verify_records = User.objects.filter(mobile=self.initial_data["identities"])
+        verify_records = User.objects.filter(mobile=self.initial_data["username"])
         if verify_records:
             raise serializers.ValidationError("用户已存在")
         return identities
@@ -92,11 +92,9 @@ class UserSerializer(serializers.ModelSerializer):
         style={'input_type': 'password'}, help_text="密码", label="密码", write_only=True,
     )
 
-
-
     def validate(self, attrs):
         attrs["mobile"] = attrs["username"]
-        del attrs["identiti"]
+        del attrs["identities"]
         return attrs
 
     class Meta:
