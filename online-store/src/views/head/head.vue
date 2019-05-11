@@ -227,7 +227,7 @@ export default {
         getHotSearch(){//获取热搜
           getHotSearch()
                 .then((response)=> {
-                    this.hotSearch = response.data
+                    this.hotSearch = response.data.results
                 })
                 .catch(function (error) {
                   console.log(error);

@@ -19,8 +19,6 @@ from goods.filters import GoodsFilter, WindowsFilter
 class GoodsListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
-
-
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filter_class = GoodsFilter
     search_fields = ('name', 'goods_brief', 'goods_desc',)
