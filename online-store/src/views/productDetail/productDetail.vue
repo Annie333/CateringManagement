@@ -40,7 +40,7 @@
                                 <li>
                                 </li>
                                 <li>
-                                    <span class="icon_promo">抢购</span> <span class="lbl">价格</span><span class="unit"> <strong class="nala_price red" id="ECS_SHOPPRICE">￥{{proDetail.price}}元</strong> </span>  <span class="timedown" id="timedown"></span>
+                                    <span class="icon_promo">购买</span> <span class="lbl">价格</span><span class="unit"> <strong class="nala_price red" id="ECS_SHOPPRICE">￥{{proDetail.price}}元</strong> </span>  <span class="timedown" id="timedown"></span>
                                 </li>
                                 <li>
                                     <span class="lbl">销&nbsp;&nbsp;&nbsp;量</span><span>最近售出<em class="red">{{proDetail.sold_num}}</em>件</span></li>
@@ -121,7 +121,7 @@ import currentLoc from './current-loc/current-loc';
 import hotSales from './hotSales';
 import model from './model'
 import { mapGetters } from 'vuex';
-import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from '../../api/api';
+import { getGoodsDetail, getGoodsFav, addGoodsFav, delGoodsFav, addShopCart,getShopCart } from '../../api/api';
   export default {
     data () {
         return {
@@ -148,7 +148,7 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
         this.productId = this.$route.params.productId;
         var productId = this.productId
         if(cookie.getCookie('token')){
-          getFav(productId).then((response)=> {
+          getGoodsFav(productId).then((response)=> {
             this.hasFav = true
           }).catch(function (error) {
             console.log(error);
@@ -219,7 +219,7 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
             // });
         },
         addCollect () { //加入收藏
-          addFav({
+          addGoodsFav({
               goods: this.productId
           }).then((response)=> {
                 console.log(response.data);
@@ -232,7 +232,7 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
 
         deleteCollect () {
             //删除收藏
-          delFav(this.productId).then((response)=> {
+          delGoodsFav(this.productId).then((response)=> {
             console.log(response.data);
             this.hasFav = false
           }).catch(function (error) {

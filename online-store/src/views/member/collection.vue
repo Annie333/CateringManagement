@@ -18,7 +18,7 @@
                             <td bgcolor="#ffffff">
                                 <router-link :to="'/app/home/productDetail/'+item.goods.id" class="f6" target="_blank">{{item.goods.name}}</router-link>
                             </td>
-                            <td bgcolor="#ffffff">本店价<span class="goods-price">￥{{item.goods.shop_price}}元</span>
+                            <td bgcolor="#ffffff">本店价<span class="goods-price">￥{{item.goods.price}}元</span>
                             </td>
                             <td align="center" bgcolor="#ffffff">
                                 <a class="f6" @click="deletePro(index, item.goods.id)">删除</a>
@@ -61,7 +61,7 @@
   </div>
 </template>
 <script>
-  import {getAllFavs, delFav} from '../../api/api'
+  import {getAllGoodsFavs, delGoodsFav} from '../../api/api'
     export default {
         data () {
             return {
@@ -102,7 +102,7 @@
         },
         methods: {
             getCollection () { //获取收藏列表
-              getAllFavs().then((response)=> {
+              getAllGoodsFavs().then((response)=> {
                     this.collections = response.data;
                 }).catch(function (error) {
                     console.log(error);
@@ -140,7 +140,7 @@
             },
             deletePro (index, id) { //删除收藏商品
                 alert('您确定要从收藏夹中删除选定的商品吗？');
-                delFav(id).then((response)=> {
+                delGoodsFav(id).then((response)=> {
                     this.collections.splice(index,1);
                     alert('已删除商品');
                 }).catch(function (error) {

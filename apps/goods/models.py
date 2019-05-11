@@ -68,6 +68,7 @@ class Goods(models.Model):
     ship_free = models.BooleanField(default=True, verbose_name="是否承担运费")
     fav_num = models.IntegerField(default=0, verbose_name="收藏数")
     is_hot = models.BooleanField(default=False, verbose_name="是否热销")
+    is_new = models.BooleanField(default=False, verbose_name="是否新品")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     class Meta:

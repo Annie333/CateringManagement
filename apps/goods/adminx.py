@@ -7,10 +7,10 @@ import DjangoUeditor
 
 class GoodsAdmin(object):
     list_display = ["name", "num", "click_num", "sold_num", "fav_num", "goods_brief", "goods_desc", "add_time",
-                    "category_type", "window", "ship_free", "is_hot", "price"]
-    search_fields = ['name', "category_type", "window__name", "ship_free", "is_hot", "price"]
+                    "category_type", "window", "ship_free", "is_hot", "price", "is_new"]
+    search_fields = ['name', "category_type", "window__name", "ship_free", "is_hot", "price", "is_new"]
     list_filter = ["name", "num", "click_num", "sold_num", "fav_num", "goods_brief", "goods_desc", "add_time",
-                   "category_type", "window__name", "ship_free", "is_hot", "price"]
+                   "category_type", "window__name", "ship_free", "is_hot", "price", "is_new"]
     style_fields = {"goods_desc": "ueditor"}
 
     class GoodsImagesInline(object):

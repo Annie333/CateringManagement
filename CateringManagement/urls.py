@@ -26,12 +26,15 @@ from users.views import UserViewSet
 import xadmin
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
+from user_option.views import UserWindowsFavViewSet,UserGoodsFavViewSet
 
 router = DefaultRouter()
 router.register(r'goods', GoodsListViewSet, base_name="goods")
 router.register(r'categorys', PlaceCategoryViewSet, base_name="categorys")
 router.register(r'windows', WindowsListViewSet, base_name="windows")
 router.register(r'users', UserViewSet, base_name="users")
+router.register(r'windowsfav', UserWindowsFavViewSet, base_name="windowsfav")
+router.register(r'goodsfav', UserGoodsFavViewSet, base_name="goodsfav")
 goods_list = GoodsListViewSet.as_view({
     'get': 'list',
 })

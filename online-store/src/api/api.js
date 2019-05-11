@@ -9,7 +9,7 @@ let local_host='http://127.0.0.1:8000';
 export const queryCategorygoods = params => { return axios.get(`${local_host}/indexgoods/`) }
 
 //获取首页中的新品
-export const newGoods = params => { return axios.get(`${host}/newgoods/`) }
+export const newGoods = params => { return axios.get(`${local_host}/newgoods/`) }
 
 //获取轮播图
 export const bannerGoods = params => { return axios.get(`${host}/banners/`) }
@@ -62,16 +62,27 @@ export const updateShopCart = (goodsId, params) => { return axios.patch(`${host}
 //删除某个商品的购物记录
 export const deleteShopCart = goodsId => { return axios.delete(`${host}/shopcarts/`+goodsId+'/') }
 
-//收藏
-export const addFav = params => { return axios.post(`${host}/userfavs/`, params) }
+//收藏商品
+export const addGoodsFav = params => { return axios.post(`${local_host}/goodsfav/`, params) }
 
-//取消收藏
-export const delFav = goodsId => { return axios.delete(`${host}/userfavs/`+goodsId+'/') }
+//取消收藏商品
+export const delGoodsFav = goodsId => { return axios.delete(`${local_host}/goodsfav/`+goodsId+'/') }
 
-export const getAllFavs = () => { return axios.get(`${host}/userfavs/`) }
+export const getAllGoodsFav = () => { return axios.get(`${local_host}/goodsfav/`) }
 
 //判断是否收藏
-export const getFav = goodsId => { return axios.get(`${host}/userfavs/`+goodsId+'/') }
+export const getGoodsFav = goodsId => { return axios.get(`${local_host}/goodsfav/`+goodsId+'/') }
+
+//收藏窗口
+export const addWindowsFav = params => { return axios.post(`${local_host}/windowsfav/`, params) }
+
+//取消收藏窗口
+export const delWindowsFav = windowsId => { return axios.delete(`${local_host}/windowsfav/`+windowsId+'/') }
+
+export const getAllWindowsFav = () => { return axios.get(`${local_host}/windowsfav/`) }
+
+//判断是否收藏
+export const getWindowsFav = windowsId => { return axios.get(`${local_host}/windowsfav/`+windowsId+'/') }
 
 //登录
 export const login = params => {

@@ -17,6 +17,7 @@ class UserGoodsFav(models.Model):
     class Meta:
         verbose_name = "用户收藏商品"
         verbose_name_plural = verbose_name
+        unique_together = ("user", "goods")#联合唯一，数据库内完成，若记录重复，数据库抛出异常
 
     def __str__(self):
         return self.user.username
