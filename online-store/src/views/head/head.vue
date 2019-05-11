@@ -218,7 +218,7 @@ export default {
             params:{}
           }).then((response)=> {
                     console.log(response)
-                    this.allMenuLabel = response.data.results
+                    this.allMenuLabel = response.data
                 })
                 .catch(function (error) {
                   console.log(error);

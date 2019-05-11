@@ -103,7 +103,7 @@
                     page: this.curPage, //当前页码
                     top_category: this.top_category, //商品类型
                   }).then((response)=> {
-                    this.listData = response.data.results;
+                    this.listData = response.data;
                     this.proNum = response.data.count;
                   }).catch(function (error) {
                     console.log(error);

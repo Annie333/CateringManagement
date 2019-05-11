@@ -6,6 +6,7 @@
             <div class="maincon">
                 <price-range :priceRange="priceRange" @on-change="changePrice"></price-range>
                 <list-sort @on-sort="changeSort" :proNum="proNum"></list-sort>
+                <h1>商家信息: {{windowDetail.name}}/{{windowDetail.kind.name}}/{{windowDetail.kind.code}}/{{windowDetail.windows_desc}}</h1>
                 <div class="list-detail">
                     <product-list  :listData="listData"></product-list>
                     <Page pre-text="上一页" next-text="下一页" end-show="false" :page="curPage" :total-page='totalPage' @pagefn="pagefn"></Page>
@@ -29,7 +30,7 @@
     // 价格范围
     import priceRange from './price-range/priceRange';
 
-    import { getCategory, getGoods, getWindows } from '../../api/api'
+    import { getCategory, getGoods, getWindows, getWindowsDetail } from '../../api/api'
     export default {
         data () {
             return {
@@ -46,7 +47,8 @@
                 pricemax: '', //价格最高
                 pageType:'list',
                 searchWord:'',
-                currentCategoryName:''
+                currentCategoryName:'',
+                windowDetail: ''
             };
         },
         components: {
@@ -63,6 +65,7 @@
         },
         created () {
             this.getAllData ();
+            this.getDetail();
         },
         watch: {
             "$route": "getAllData"
@@ -93,7 +96,7 @@
                   getGoods({
                     search: this.searchWord, //搜索关键词
                   }).then((response)=> {
-                    this.listData = response.data.results;
+                    this.listData = response.data;
                     this.proNum = response.data.count;
                   }).catch(function (error) {
                     console.log(error);
@@ -107,7 +110,7 @@
                     pricemax: this.pricemax // 价格最高 默认为‘’
                   }).then((response)=> {
 
-                    this.listData = response.data.results;
+                    this.listData = response.data;
                     this.proNum = response.data.count;
                   }).catch(function (error) {
                     console.log(error);
@@ -180,6 +183,17 @@
             pagefn(value){//点击分页
                 this.curPage = value.page;
                 this.getListData()
+            },
+            getDetail () {
+                var t = this
+                console.log("getWindowsDetail")
+                getWindowsDetail(this.$route.params.id)
+                .then((response)=> {
+                    console.log(response)
+                    t.windowDetail = response.data
+                  }).catch(function (error) {
+                    console.log(error);
+                  });
             }
         }
 }

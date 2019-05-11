@@ -48,6 +48,8 @@ export const getWindows = params => {
     return axios.get(`${local_host}/windows/`, params);
   }
 };
+//获取窗口详细信息
+export const getWindowsDetail = windowId => { return axios.get(`${local_host}/windows/`+windowId+'/');};
 
 
 //商品详情
