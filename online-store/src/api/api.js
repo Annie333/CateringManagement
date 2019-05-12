@@ -91,8 +91,6 @@ export const login = params => {
   return axios.post(`${local_host}/login/`, params)
 }
 
-//员工登陆
-export const stafflogin = params => { return axios.post(`${local_host}/staff/`, params )}
 //注册
 
 export const register = parmas => { return axios.post(`${local_host}/users/`, parmas) }
