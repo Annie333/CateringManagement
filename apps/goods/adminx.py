@@ -1,6 +1,6 @@
 from _datetime import datetime
 import xadmin
-from .models import Goods, GoodsImage, Windows, Banner, HotSearchWords, Staff, PlaceCategory
+from .models import Goods, GoodsImage, Windows, Banner, HotSearchWords, PlaceCategory, Staff
 from .models import IndexAd
 import DjangoUeditor
 
@@ -23,9 +23,9 @@ class GoodsAdmin(object):
 
 
 class StaffAdmin(object):
-    list_display = ['window', 'name', "birthday", "sex", "mobile", "enter_date"]
-    list_filter = ['window__name', 'name', "birthday", "sex", "mobile", "enter_date"]
-    search_fields = ['name', "window__name"]
+    list_display = ['windows', 'name', "birthday", "sex", "mobile", "enter_date"]
+    list_filter = ['windows__name', 'name', "birthday", "sex", "mobile", "enter_date"]
+    search_fields = ['name', "windows__name"]
 
 
 class PlaceCategoryAdmin(object):

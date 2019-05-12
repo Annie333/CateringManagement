@@ -1,7 +1,7 @@
 import django_filters
 from django.db.models import Q
 
-from goods.models import Goods,Windows, PlaceCategory
+from goods.models import Goods, Windows, PlaceCategory
 
 
 class GoodsFilter(django_filters.rest_framework.FilterSet):
@@ -33,3 +33,4 @@ class WindowsFilter(django_filters.rest_framework.FilterSet):
     class Meta:
         model = Windows
         fields = ["kind_id"]
+

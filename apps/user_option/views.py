@@ -2,10 +2,11 @@ from django.shortcuts import render
 from rest_framework import viewsets,mixins
 from django.contrib.auth import get_user_model
 from rest_framework.mixins import CreateModelMixin
-from user_option.serializers import UserGoodsFavSerializer, UserWindowsFavSerializer
-from user_option.models import UserWindowsFav, UserGoodsFav
+from user_option.serializers import UserGoodsFavSerializer, UserWindowsFavSerializer, AddressSerializer, \
+    LeavingMessageSerializer
+from user_option.models import UserWindowsFav, UserGoodsFav, UserAddress, LeavingMessage
 from rest_framework.permissions import IsAuthenticated
-from Utils.permissions import IsOwnerOrReadOnly
+from utils.permissions import IsOwnerOrReadOnly
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authentication import SessionAuthentication
 
@@ -35,3 +36,43 @@ class UserWindowsFavViewSet(CreateModelMixin, viewsets.GenericViewSet, mixins.Re
 
     def get_queryset(self):
         return UserWindowsFav.objects.filter(user=self.request.user)
+
+
+class LeavingMessageViewSet(mixins.ListModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin,
+                            viewsets.GenericViewSet):
+    """
+    list:
+        获取用户留言
+    create:
+        添加留言
+    delete:
+        删除留言功能
+    """
+
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    serializer_class = LeavingMessageSerializer
+    lookup_field = "windows_id"
+
+    def get_queryset(self):
+        return LeavingMessage.objects.filter(user=self.request.user)
+
+
+class AddressViewSet(viewsets.ModelViewSet):
+    """
+    收货地址管理
+    list:
+        获取收货地址
+    create:
+        添加收货地址
+    update:
+        更新收货地址
+    delete:
+        删除收货地址
+    """
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    serializer_class = AddressSerializer
+
+    def get_queryset(self):
+        return UserAddress.objects.filter(user=self.request.user)
