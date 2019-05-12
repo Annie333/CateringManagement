@@ -3,15 +3,22 @@ from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.views import APIView
-from goods.serializers import GoodsSerializer, PlaceCategorySerializer, WindowsSerializer
-from rest_framework.views import APIView
+from goods.serializers import GoodsSerializer, PlaceCategorySerializer, WindowsSerializer,StaffSerializer
 from rest_framework.response import Response
-from .models import Goods,PlaceCategory,Windows
+from .models import Goods, PlaceCategory, Windows, Staff
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework import filters
 from goods.filters import GoodsFilter, WindowsFilter
+from django.db.models import Q
+from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth import get_user_model
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.mixins import CreateModelMixin
+from rest_framework_jwt.serializers import jwt_encode_handler, jwt_payload_handler
+from rest_framework import status
 
 # Create your views here.
 
@@ -46,7 +53,14 @@ class WindowsListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     filter_class = WindowsFilter
     search_fields = ('name', )
 
-#
+
+class StaffViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    员工登录
+    """
+    queryset = Staff.objects.all()
+    serializer_class = StaffSerializer
+
 # class HotSearchsViewset(mixins.ListModelMixin, viewsets.GenericViewSet):
 #     """
 #     获取热搜词列表

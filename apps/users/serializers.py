@@ -77,26 +77,26 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ("name", "gender", "birthday", "email", "mobile")
 
 
-class UserSerializer(serializers.ModelSerializer):
-    identities = serializers.CharField(required=True, write_only=True, max_length=4, min_length=9, label="身份号码",
-                                       error_messages={
-                                           "blank": "请输入身份号码",
-                                           "required": "请输入身份号码",
-                                           "max_length": "格式错误",
-                                           "min_length": "格式错误"
-                                       },
-                                       help_text="验证码")
-    username = serializers.CharField(label="用户名", help_text="用户名", required=True, allow_blank=False,
-                                     validators=[UniqueValidator(queryset=User.objects.all(), message="用户已经存在")])
-    password = serializers.CharField(
-        style={'input_type': 'password'}, help_text="密码", label="密码", write_only=True,
-    )
-
-    def validate(self, attrs):
-        attrs["mobile"] = attrs["username"]
-        del attrs["identities"]
-        return attrs
-
-    class Meta:
-        model = User
-        fields = ("username", "code", "mobile", "password")
+# class UserSerializer(serializers.ModelSerializer):
+#     identities = serializers.CharField(required=True, write_only=True, max_length=4, min_length=9, label="身份号码",
+#                                        error_messages={
+#                                            "blank": "请输入身份号码",
+#                                            "required": "请输入身份号码",
+#                                            "max_length": "格式错误",
+#                                            "min_length": "格式错误"
+#                                        },
+#                                        help_text="验证码")
+#     username = serializers.CharField(label="用户名", help_text="用户名", required=True, allow_blank=False,
+#                                      validators=[UniqueValidator(queryset=User.objects.all(), message="用户已经存在")])
+#     password = serializers.CharField(
+#         style={'input_type': 'password'}, help_text="密码", label="密码", write_only=True,
+#     )
+#
+#     def validate(self, attrs):
+#         attrs["mobile"] = attrs["username"]
+#         del attrs["identities"]
+#         return attrs
+#
+#     class Meta:
+#         model = User
+#         fields = ("username", "code", "mobile", "password")

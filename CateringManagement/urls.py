@@ -21,18 +21,28 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
 from CateringManagement.settings import MEDIA_ROOT
 from django.views.static import serve
-from goods.views import GoodsListViewSet, PlaceCategoryViewSet, WindowsListViewSet
+from goods.views import GoodsListViewSet, PlaceCategoryViewSet, WindowsListViewSet,StaffViewSet
+from users.views import UserViewSet
 import xadmin
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
+from user_option.views import UserWindowsFavViewSet, UserGoodsFavViewSet, AddressViewSet, LeavingMessageViewSet
 
 router = DefaultRouter()
 router.register(r'goods', GoodsListViewSet, base_name="goods")
 router.register(r'categorys', PlaceCategoryViewSet, base_name="categorys")
 router.register(r'windows', WindowsListViewSet, base_name="windows")
+router.register(r'users', UserViewSet, base_name="users")
+router.register(r'windowsfav', UserWindowsFavViewSet, base_name="windowsfav")
+router.register(r'goodsfav', UserGoodsFavViewSet, base_name="goodsfav")
+router.register(r'windowsfav', UserWindowsFavViewSet, base_name="windowsfav")
+router.register(r'goodsfav', UserGoodsFavViewSet, base_name="goodsfav")
+router.register(r'messages', LeavingMessageViewSet, base_name="message")
+router.register(r'address', AddressViewSet, base_name="address")
+router.register(r'staff', StaffViewSet, base_name="staff")
 goods_list = GoodsListViewSet.as_view({
     'get': 'list',
-})#我想找你的python但我找不到了
+})
 
 #配置goods的url
 urlpatterns = [
@@ -42,7 +52,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     # jwt的认证接口
-    url(r'^login/', views.obtain_auth_token),
-#drf自带认证接口
+    url(r'^api-token-auth/', views.obtain_auth_token),
+    #drf自带认证接口
      url(r'^login/', obtain_jwt_token),
 ]

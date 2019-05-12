@@ -159,11 +159,11 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 REST_FRAMEWORK = {
-  'PAGE_SIZE': 10,
-   'DEFAULT_AUTHENTICATION_CLASSES': (
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',#验证用户token，取出用户信息
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',#验证用户token，取出用户信息,放特定的view中才不会影响全局配置
     )
 }
 JWT_AUTH = {

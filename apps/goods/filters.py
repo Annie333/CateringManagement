@@ -1,7 +1,7 @@
 import django_filters
 from django.db.models import Q
 
-from goods.models import Goods,Windows, PlaceCategory
+from goods.models import Goods, Windows, PlaceCategory
 
 
 class GoodsFilter(django_filters.rest_framework.FilterSet):
@@ -17,7 +17,7 @@ class GoodsFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         model = Goods
-        fields = ['pricemin', 'pricemax']
+        fields = ['pricemin', 'pricemax', 'is_hot']
 
 
 class WindowsFilter(django_filters.rest_framework.FilterSet):
@@ -27,8 +27,10 @@ class WindowsFilter(django_filters.rest_framework.FilterSet):
     top_category = django_filters.NumberFilter(method="top_category_filter")
 
     def top_category_filter(self, queryset, name, value):
-        return queryset.filter(Q(kind_id=value) | Q(kind__place_category_id=value) | Q(kind__place_category__place_category_id=value))
+        return queryset.filter(
+            Q(kind_id=value) | Q(kind__place_category_id=value) | Q(kind__place_category__place_category_id=value))
 
     class Meta:
         model = Windows
         fields = ["kind_id"]
+
