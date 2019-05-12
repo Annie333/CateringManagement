@@ -21,7 +21,8 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
 from CateringManagement.settings import MEDIA_ROOT
 from django.views.static import serve
-from goods.views import GoodsListViewSet, PlaceCategoryViewSet, WindowsListViewSet,StaffViewSet
+from goods.views import GoodsListViewSet, PlaceCategoryViewSet, WindowsListViewSet
+from trade.views import ShoppingCartViewSet
 from users.views import UserViewSet
 import xadmin
 from rest_framework.authtoken import views
@@ -39,7 +40,8 @@ router.register(r'windowsfav', UserWindowsFavViewSet, base_name="windowsfav")
 router.register(r'goodsfav', UserGoodsFavViewSet, base_name="goodsfav")
 router.register(r'messages', LeavingMessageViewSet, base_name="message")
 router.register(r'address', AddressViewSet, base_name="address")
-router.register(r'staff', StaffViewSet, base_name="staff")
+# router.register(r'staff', StaffViewSet, base_name="staff")
+router.register(r'shopcarts', ShoppingCartViewSet, base_name="shopcarts")
 goods_list = GoodsListViewSet.as_view({
     'get': 'list',
 })

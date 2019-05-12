@@ -10,7 +10,7 @@ User = get_user_model()
 class ShoppingCart(models.Model):
     user = models.ForeignKey(User, verbose_name="用户", on_delete=models.CASCADE)
     goods = models.ForeignKey(Goods, verbose_name="商品", on_delete=models.CASCADE)
-    windows = models.ForeignKey(Windows, verbose_name="窗口", on_delete=models.CASCADE)
+    # windows = models.ForeignKey(Windows, verbose_name="窗口", on_delete=models.CASCADE)
     goods_num = models.IntegerField(default=0, verbose_name="购买数量")
     add_time = models.DateField(default=datetime.now(), verbose_name="添加时间")
 

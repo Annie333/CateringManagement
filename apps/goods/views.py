@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.views import APIView
-from goods.serializers import GoodsSerializer, PlaceCategorySerializer, WindowsSerializer,StaffSerializer
+from goods.serializers import GoodsSerializer, PlaceCategorySerializer, WindowsSerializer
 from rest_framework.response import Response
 from .models import Goods, PlaceCategory, Windows, Staff
 from rest_framework import mixins
@@ -54,12 +54,12 @@ class WindowsListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     search_fields = ('name', )
 
 
-class StaffViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """
-    员工登录
-    """
-    queryset = Staff.objects.all()
-    serializer_class = StaffSerializer
+# class StaffViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+#     """
+#     员工登录
+#     """
+#     queryset = Staff.objects.all()
+#     serializer_class = StaffSerializer
 
 # class HotSearchsViewset(mixins.ListModelMixin, viewsets.GenericViewSet):
 #     """
