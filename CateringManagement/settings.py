@@ -100,9 +100,9 @@ DATABASES = {
             #连接数据库的用户名
             'USER': 'root',
             #连接数据库的密码（下载mysql时配置的密码）
-            'PASSWORD': '970318',
+            'PASSWORD': 'zyz**ZYZ#',
             #数据库的主机地址
-            'HOST': '127.0.0.1',
+            'HOST': '39.108.90.94',
             #数据库的端口号，默认为3306,也可以不写这一行代码
             'PORT': '3306',
             'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB;'}
@@ -137,7 +137,7 @@ REGEX_MOBILE = "^1[358]\d{9}$|^147\d{8}$|^176\d{8}$"
 
 LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'Asia/Shanghai'
+TIME_ZONE = 'Asia/Shanghai'#
 
 USE_I18N = True
 
