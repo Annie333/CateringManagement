@@ -34,6 +34,7 @@ import windowlist from '../views/list/windowlist'
 import index from '../views/index/index'
 import loginHead from '../views/loginHead/loginHead'
 import login from '../views/login/login'
+import stafflogin from '../views/login/stafflogin'
 import shophead from '../views/head/shophead'
 import cart from '../views/cart/cart'
 import productDetail from '../views/productDetail/productDetail'
@@ -162,6 +163,19 @@ var router = new Router({
         components: {
           head: loginHead,
           content: login,
+          footer: footer
+        },
+        meta: {
+          title: '登录',
+          need_log: false
+        }
+      },
+      {
+        path: 'stafflogin',
+        name: 'stafflogin',
+        components: {
+          head: loginHead,
+          content: stafflogin,
           footer: footer
         },
         meta: {

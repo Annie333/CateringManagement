@@ -3,7 +3,7 @@
     <div class="c-box bg-box" >
       <div class="login-box clearfix"style="margin-top:10px">
         <div class="fr form-box">
-          <h2>帐号登录</h2>
+          <h2>帐号登录 - 用户</h2>
           <form id="jsLoginForm" autocomplete="off">
 
             <input type="hidden" name="csrfmiddlewaretoken" value="ywSlOHdiGsK6VFB6iyhnB1B30khmz8SU">
@@ -37,6 +37,7 @@
           <p class="form-p">
             没有帐号？
             <router-link :to="'/app/register/'" target = _blank>[立即注册]</router-link>
+            <router-link :to="'/app/stafflogin/'">[员工登陆]</router-link>
           </p>
         </div>
 
