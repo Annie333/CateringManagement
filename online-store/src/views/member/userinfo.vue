@@ -23,15 +23,15 @@
                                     <tr>
                                         <td width="28%" align="right" bgcolor="#FFFFFF">性　别： </td>
                                         <td width="72%" align="left" bgcolor="#FFFFFF">
-                                            <input type="radio" id="male" value="male" v-model="userInfo.gender">
+                                            <input type="radio" id="male" value="male" v-model="userInfo.sex">
                                             <label for="male">男</label>
-                                            <input type="radio" id="female" value="female" v-model="userInfo.gender">
+                                            <input type="radio" id="female" value="female" v-model="userInfo.sex">
                                             <label for="female">女</label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td width="28%" align="right" bgcolor="#FFFFFF">电子邮件地址： </td>
-                                        <td width="72%" align="left" bgcolor="#FFFFFF"><input name="email" type="text" placeholder="xxxx@xx.com" size="25" class="inputBg" v-model="userInfo.email"></td>
+                                        <td width="28%" align="right" bgcolor="#FFFFFF">身份号码： </td>
+                                        <td width="72%" align="left" bgcolor="#FFFFFF"><input name="email" type="text" placeholder="22xx00xxx.com" size="25" class="inputBg" v-model="userInfo.identities"><span style="color:#FF0000"> *</span></td>
                                     </tr>
                                     <tr>
                                         <td width="28%" align="right" bgcolor="#FFFFFF" id="extend_field5i">手机：</td>

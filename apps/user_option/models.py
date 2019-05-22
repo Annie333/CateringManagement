@@ -11,7 +11,7 @@ User = get_user_model()
 
 class UserGoodsFav(models.Model):
     user = models.ForeignKey(User, verbose_name="用户", on_delete=models.CASCADE)
-    goods = models.ForeignKey(Goods, verbose_name="商品", on_delete=models.CASCADE)
+    goods = models.ForeignKey(Goods, verbose_name="商品", on_delete=models.CASCADE, help_text="商品id")
     add_time = models.DateField(default=datetime.now(), verbose_name="添加时间")
 
     class Meta:
@@ -59,10 +59,13 @@ class LeavingMessage(models.Model):
 
 class UserAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="用户")
+    province = models.CharField(max_length=100, default="", verbose_name="省份")
+    city = models.CharField(max_length=100, default="", verbose_name="城市")
     district = models.CharField(max_length=100, default="", verbose_name="区域")
     address = models.CharField(max_length=100, default="", verbose_name="地址")
     signer_mobile = models.CharField(max_length=11, default="", verbose_name="签收电话")
     signer_name = models.CharField(max_length=100, default="", verbose_name="签收人")
+    signer_identity = models.CharField(max_length=9, verbose_name="签收人身份")
     add_time = models.DateTimeField(default=datetime.now(), verbose_name="添加时间")
 
     class Meta:

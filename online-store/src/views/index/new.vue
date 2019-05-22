@@ -21,8 +21,8 @@
                         <router-link :to="'/app/home/list/'+item.id"  :title="item.name" target = _blank>{{item.name}}</router-link>
                         </h3>
                         <p><em class="c333"></em>{{item.goods_brief}}</p><div>
-                        <span class="p-price"><em class="fastbuy_price">￥{{item.shop_price}}元</em><del>原价:￥{{item.market_price}}元</del></span>
-                        <a href="" class="p-buy fr ibg">立即抢购</a>
+                        <span class="p-price"><em class="fastbuy_price">￥{{item.price}}元</em></span>
+                        <a href="" class="p-buy fr ibg">立即购买</a>
                         <span class="p-time fr">销量：{{item.sold_num}}件</span>
                     </div>
                     </div>
@@ -50,7 +50,7 @@ export default{
           })
             .then((response)=> {
                //跳转到首页页response.body面
-                this.newopro = response.data.results
+                this.newopro = response.data
             })
             .catch(function (error) {
               console.log(error);

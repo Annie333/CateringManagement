@@ -153,7 +153,7 @@ canvas {
 }
 .maincon{width:970px;float:right}
 .search-options{margin-bottom:12px;background-color:#fff}
-.search-options .bd{border:1px solid #eee;border-bottom:0;+zoom:1}
+.search-options .bd{border:1px solid #eee;border-bottom:0;zoom:1}
 .search-options dl{padding:10px 0;border-bottom:1px solid #eee;width:100%;position:relative}
 .search-options dt{position:absolute;top:10px;left:10px;font-size:14px}
 .search-options dd{position:relative;padding:0 50px 0 63px;height:24px;overflow:hidden;-webkit-transition:height .3s;-moz-transition:height .3s;-o-transition:height .3s;transition:height .3s}
@@ -183,11 +183,11 @@ canvas {
 /*}*/
 
 .priceform{position:absolute;top:-11px;left:500px;z-index:10}
-.priceform .form-bg{width:270px;border:1px solid #fff;border-top-color:#eee;padding:8px 15px;+padding-bottom:7px;font-size:0}
+.priceform .form-bg{width:270px;border:1px solid #fff;border-top-color:#eee;padding:8px 15px;padding-bottom:7px;font-size:0}
 .priceform input{font-size:12px;border:1px solid #eaeaea;padding:3px;height:18px;width:60px;line-height:18px}
 .priceform input.submit{height:26px;padding:0;line-height:16px;cursor:pointer;background-color:#eaeaea;width:68px;border-color:#e1e1e1;background-color:#eaeaea;background-image:-moz-linear-gradient(#fefefe,#eaeaea);background-image:-webkit-linear-gradient(#fefefe,#eaeaea);background-image:linear-gradient(#fefefe,#eaeaea)}
 .priceform input.submit:hover{background-color:#e4e4e4}
-.priceform span{height:26px;width:12px;display:inline-block;vertical-align:-9px;+vertical-align:-1px;font-size:12px}
+.priceform span{height:26px;width:12px;display:inline-block;vertical-align:-9px;vertical-align:-1px;font-size:12px}
 .priceform span.rmb{background-position:-10px -272px}
 .priceform span.rmb2{padding-left:20px;background-position:8px -272px}
 .priceform form p{display:none;text-align:right;padding-top:4px}
@@ -203,10 +203,10 @@ a.more-btn,.rmb,.search-selected a.item,.sort .bd a span{background:url(./images
 
 
 .sort .bd{float:left;font-size:0;padding-right:12px}
-.sort .bd a{display:inline-block;font-size:12px;margin-right:-1px;+margin-right:-2px;position:relative;z-index:1}
-.sort .bd a span{display:block;padding:5px 26px 5px 15px;background-position:right -128px;+background-position:right -127px}
-.sort .curr .search_DESC{border:1px solid #fff;padding:4px 26px 4px 15px;background-position:right -104px;+background-position:right -102px;color:#09c762;text-shadow:1px 1px 1px #fff}
-.sort .curr .search_ASC{border:1px solid #fff;padding:4px 26px 4px 15px;background-position:right -330px;+background-position:right -328px;color:#09c762;text-shadow:1px 1px 1px #fff}
+.sort .bd a{display:inline-block;font-size:12px;margin-right:-1px;margin-right:-2px;position:relative;z-index:1}
+.sort .bd a span{display:block;padding:5px 26px 5px 15px;background-position:right -128px;background-position:right -127px}
+.sort .curr .search_DESC{border:1px solid #fff;padding:4px 26px 4px 15px;background-position:right -104px;background-position:right -102px;color:#09c762;text-shadow:1px 1px 1px #fff}
+.sort .curr .search_ASC{border:1px solid #fff;padding:4px 26px 4px 15px;background-position:right -330px;background-position:right -328px;color:#09c762;text-shadow:1px 1px 1px #fff}
 .sort .bd a:hover{z-index:2;text-decoration:none}
 .sort .bd a.default span{background-image:none;padding-right:15px}
 .sort .bd a.promotion span{padding-right:15px;padding-left:30px;background-position:10px -153px}

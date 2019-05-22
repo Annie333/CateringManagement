@@ -1,14 +1,18 @@
+from django.db.migrations import serializer
 from django.shortcuts import render
 from rest_framework import viewsets,mixins
 from django.contrib.auth import get_user_model
 from rest_framework.mixins import CreateModelMixin
 from user_option.serializers import UserGoodsFavSerializer, UserWindowsFavSerializer, AddressSerializer, \
-    LeavingMessageSerializer
+    UserGoodsFavDetailSerializer, LeavingMessageSerializer, LeavingMessageDetailSerializer,StaffLeavingMessageSerializer
 from user_option.models import UserWindowsFav, UserGoodsFav, UserAddress, LeavingMessage
 from rest_framework.permissions import IsAuthenticated
 from utils.permissions import IsOwnerOrReadOnly
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authentication import SessionAuthentication
+from user_option.filters import LeavingMessageFilter
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 User = get_user_model()
 
@@ -24,6 +28,14 @@ class UserGoodsFavViewSet(CreateModelMixin, viewsets.GenericViewSet, mixins.Retr
 
     def get_queryset(self):
         return UserGoodsFav.objects.filter(user=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return UserGoodsFavDetailSerializer
+        elif self.action == "create":
+            return UserGoodsFavSerializer
+
+        return UserGoodsFavSerializer
 
 
 class UserWindowsFavViewSet(CreateModelMixin, viewsets.GenericViewSet, mixins.RetrieveModelMixin,
@@ -57,6 +69,14 @@ class LeavingMessageViewSet(mixins.ListModelMixin, mixins.DestroyModelMixin, mix
     def get_queryset(self):
         return LeavingMessage.objects.filter(user=self.request.user)
 
+    def get_serializer_class(self):
+        if self.action == "list":
+            return LeavingMessageDetailSerializer
+        elif self.action == "create":
+            return LeavingMessageSerializer
+
+        return LeavingMessageSerializer
+
 
 class AddressViewSet(viewsets.ModelViewSet):
     """
@@ -76,3 +96,17 @@ class AddressViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return UserAddress.objects.filter(user=self.request.user)
+
+
+class StaffMessageViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+        员工获取用户留言
+    """
+
+    # permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    # authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    queryset = LeavingMessage.objects.all()
+    serializer_class = StaffLeavingMessageSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filter_class = LeavingMessageFilter

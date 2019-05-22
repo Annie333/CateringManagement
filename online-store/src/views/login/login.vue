@@ -22,6 +22,12 @@
             <div class="auto-box marb38">
             </div>
             <p class="error-text" v-show="error">{{error}}</p>
+            <td>
+                    <input type="radio" id="one" value="1" v-model="user_type">
+                    <label for="one">普通用户</label>
+                    <input type="radio" id="two" value="2" v-model="user_type">
+                    <label for="two">员工</label>
+            </td>
             <input class="btn btn-green" id="jsLoginBtn" type="button" @click = "login" value="立即登录 &gt; ">
           </form>
           <ul class="form other-form">
@@ -50,6 +56,7 @@
   export default {
     data(){
       return {
+        user_type:'',
         userName:'',
         passWord:'',
         autoLogin:false,
@@ -77,7 +84,10 @@
             // 更新store数据
             that.$store.dispatch('setInfo');
             //跳转到首页页面
+            if (this.user_type == '2')
             this.$router.push({ name: 'index'})
+            else
+            this.$router.push({ name: 'staffmember'})
           })
           .catch(function (error) {
             if("non_field_errors" in error){
@@ -168,7 +178,7 @@
     overflow:hidden;
   }
   .bg-box{
-    background:url(../../static/images/login/loginBg1.jpg) no-repeat center center;
+    background:url(../../static/images/login/loginBg1.png) no-repeat center center;
   }
   .login-box{
     width:853px;

@@ -24,9 +24,9 @@ class UserLeavingMessageAdmin(object):
 
 
 class UserAddressAdmin(object):
-    list_display = ["signer_name", "signer_mobile", "district", "address"]
-    search_fields = ["signer_name", "signer_mobile", "district", "address"]
-    list_filter = ["signer_name", "signer_mobile", "district", "address"]
+    list_display = ["signer_name", "signer_mobile", "district", "address", "province", "city"]
+    search_fields = ["signer_name", "signer_mobile", "district", "address", "province", "city"]
+    list_filter = ["signer_name", "signer_mobile", "district", "address", "province", "city"]
 
 
 xadmin.site.register(UserGoodsFav, UserGoodsFavAdmin)

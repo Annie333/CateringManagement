@@ -18,18 +18,3 @@ def delete_usergoodsfav(sender, instance=None, created=False, **kwargs):
     goods = instance.goods
     goods.fav_num -= 1
     goods.save()
-
-
-@receiver(post_save, sender=UserGoodsFav)
-def create_usergoodsfav(sender, instance=None, created=False, **kwargs):
-    if created:
-        goods = instance.goods
-        goods.fav_num += 1
-        goods.save()
-
-
-@receiver(post_delete, sender=UserGoodsFav)
-def delete_usergoodsfav(sender, instance=None, created=False, **kwargs):
-    goods = instance.goods
-    goods.fav_num -= 1
-    goods.save()

@@ -17,6 +17,7 @@
                                     <span v-if="item.message_type===4">售后：</span>
                                     <span v-if="item.message_type===5">求购：</span>
                                     <span>{{item.subject}}</span>
+                                    <span>{{item.windows.name}}</span>
                                     <span>（{{item.add_time}}）</span>
                                 </div>
                                 <div>
@@ -46,7 +47,6 @@
                                     <label for="four">售后</label>
                                     <input type="radio" id="five" value="5" v-model="message_type">
                                     <label for="five">求购</label>
-
                                     <!-- <input name="msg_type" type="radio" value="0" checked="checked">
                                     留言                        <input type="radio" name="msg_type" value="1">
                                     投诉                        <input type="radio" name="msg_type" value="2">
@@ -58,6 +58,15 @@
                             <tr>
                                 <td align="right">主题：</td>
                                 <td><input name="msg_title" type="text" size="30" class="inputBg" v-model="subject"></td>
+                            </tr>
+                             <tr>
+                                <td align="right">食堂窗口：</td>
+                                <td>
+                                    <select class="form-control" name="windows" v-model="windows" >
+                                        <option value="0">请选择食堂窗口</option>
+                                        <option v-for="(item,index) in allWindowLabel" v-bind:label="item.name" v-bind:value="item.id"></option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td align="right" valign="top">留言内容：</td>
@@ -80,6 +89,9 @@
                                     <font color="red">小提示：</font><br>
                                     您可以上传以下格式的文件：<br>gif、jpg、png、word、excel、txt、zip、ppt、pdf                      </td>
                             </tr>
+                            <tr>
+                                
+                            </tr>
                             </tbody></table>
                     </form>
 
@@ -92,7 +104,7 @@
   </div>
 </template>
 <script>
-  import {getMessages, addMessage, delMessages} from '../../api/api'
+  import {getMessages, addMessage, delMessages, getWindows} from '../../api/api'
     export default {
         data () {
             return {
@@ -116,7 +128,8 @@
                     //     message: '留言内容',
                     //     time: '2017-07-19 21:20:25',
                     // }
-                ]
+                ],
+                allWindowLabel:[]
             };
         },
         props: {
@@ -127,6 +140,7 @@
         },
         created () {
             this.getMessage();
+            this.getWindow();
         },
         watch: {
 
@@ -146,11 +160,23 @@
                 formData.append('subject',this.subject);
                 formData.append('message',this.message);
                 formData.append('message_type',this.message_type);
+                formData.append('windows', this.windows);
                 addMessage(formData).then((response)=> {
                     this.getMessage();
 
                 }).catch(function (error) {
                     console.log(error);
+                });
+            },
+            getWindow(){//获取菜单
+                getWindows({
+                    params:{}
+                    }).then((response)=> {
+                        console.log(response)
+                        this.allWindowLabel = response.data
+                    })
+                    .catch(function (error) {
+                        console.log(error);
                 });
             },
             getMessage () { //获取留言

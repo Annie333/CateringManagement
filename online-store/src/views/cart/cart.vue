@@ -4,7 +4,7 @@
       <div class="fr"> <a class="graybtn" @click="continueShopping">继续购物</a>
         <a  class="btn" id="checkout-top" @click="balanceCount">&nbsp;去结算&nbsp;</a> </div>
     </div>
-    <div class="cart-box" id="cart-box">
+      <div class="cart_window" id="cart_window"
       <div class="hd"> <span class="no2" id="itemsnum-top">{{goods.goods_list.length}}件商品</span>
         <span class="no4">单价</span> <span>数量</span> <span>小计</span>
       </div>
@@ -19,15 +19,15 @@
               <p></p>
             </div>
             <div class="price-xj">
-              <p><em>￥{{item.goods.shop_price}}元</em></p>
+              <p><em>￥{{item.goods.price}}元</em></p>
             </div>
-            <div class="nums" id="nums">
+            <div class="goods_num" id="goods_num">
               <span class="minus" title="减少1个数量" @click="reduceCartNum(index, item.goods.id);">-</span>
-              <input type="text"  v-model="item.nums" >
+              <input type="text"  v-model="item.goods_num" >
               <span class="add" title="增加1个数量" @click="addCartNum(index, item.goods.id);">+</span>
             </div>
             <div class="price-xj"><span></span>
-              <em id="total_items_3137">￥{{item.goods.shop_price * item.nums}}元</em>
+              <em id="total_items_3137">￥{{item.goods.price * item.goods_num}}元</em>
             </div>
             <div class="del">
               <a class="btn-del" @click="deleteGoods(index, item.goods.id)">删除</a>
@@ -42,6 +42,14 @@
           <p><a class="graybtn" @click="continueShopping">继续购物</a></p>
         </div>
         <div class="fr" id="price-total">
+          <td>
+                    <input type="radio" id="one" value="1" v-model="get_way">
+                    <label for="one">自提</label>
+                    <input type="radio" id="two" value="2" v-model="get_way">
+                    <label for="two">堂食</label>
+                    <input type="radio" id="three" value="3" v-model="get_way">
+                    <label for="three">外送</label>
+            </td>
           <p><span id="selectedCount">{{goods.goods_list.length}}</span>件商品，总价：<span class="red"><strong id="totalSkuPrice">￥{{totalPrice}}元</strong></span></p>
         </div>
         <div class="extr">
@@ -54,8 +62,9 @@
                   点击添加地址</router-link>
               </li>
               <li v-for="item in addrInfo" :class="{'addressActive':addressActive==item.id}" @click="selectAddr(item.id)">
-                <p class="item">地址：{{item.province}} {{item.city}} {{item.district}} {{item.address}}</p>
+                <p class="item">地址：{{item.district}} {{item.address}}</p>
                 <p class="item">电话：{{item.signer_mobile}}</p>
+                <p class="item">身份号码：{{item.signer_identity}}</p>
                 <p class="item">姓名：{{item.signer_name}}</p>
               </li>
             </ul>
@@ -93,6 +102,10 @@
         address:'',
         signer_name:'',
         signer_mobile:'',
+        signer_identity:'',
+        get_way:'',
+        windows:'',
+        get_way:'',
         goods: {
           totalPrice:null,
           goods_list: [
@@ -114,9 +127,13 @@
         //this.goods_list = response.data;
         var totalPrice = 0
         this.goods.goods_list = response.data;
+        console.log(this.goods.goods_list)
+        this.windows = this.goods.goods_list[0].goods.window.id;
+        console.log('this.windows - 1');
+        console.log(this.windows);
         response.data.forEach(function(entry) {
-          totalPrice += entry.goods.shop_price*entry.nums
-          console.log(entry.goods.shop_price);
+          totalPrice += entry.goods.price*entry.goods_num
+          console.log(entry.goods.price);
         });
 
         this.goods.totalPrice = totalPrice
@@ -135,9 +152,9 @@
     methods: {
       addCartNum(index, id) { //添加数量
         updateShopCart(id,{
-          nums: this.goods.goods_list[index].nums+1
+          goods_num: this.goods.goods_list[index].goods_num+1
         }).then((response)=> {
-          this.goods.goods_list[index].nums = this.goods.goods_list[index].nums + 1;
+          this.goods.goods_list[index].goods_num = this.goods.goods_list[index].goods_num + 1;
           // 更新store数据
           this.$store.dispatch('setShopList');
           //更新总价
@@ -151,7 +168,7 @@
         var goods_list = this.goods.goods_list;
         var totalPrice = 0;
         for(var i = 0;i<goods_list.length;i++){
-          totalPrice=totalPrice+goods_list[i].nums* goods_list[i].goods.shop_price;
+          totalPrice=totalPrice+goods_list[i].goods_num* goods_list[i].goods.price;
         }
         this.totalPrice = totalPrice;
       },
@@ -169,13 +186,13 @@
         });
       },
       reduceCartNum(index, id) { //删除数量
-        if(this.goods.goods_list[index].nums<=1){
+        if(this.goods.goods_list[index].goods_num<=1){
           this.deleteGoods(index, id)
         }else{
           updateShopCart(id,{
-            nums: this.goods.goods_list[index].nums-1
+            goods_num: this.goods.goods_list[index].goods_num-1
           }).then((response)=> {
-            this.goods.goods_list[index].nums = this.goods.goods_list[index].nums - 1;
+            this.goods.goods_list[index].goods_num = this.goods.goods_list[index].goods_num - 1;
             // 更新store数据
             this.$store.dispatch('setShopList');
             //更新总价
@@ -223,27 +240,35 @@
         var cur_address = ''
         var cur_name = ''
         var cur_mobile = ''
+        var cur_identity = ''
         this.addrInfo.forEach(function(addrItem) {
           if(addrItem.id == id){
             cur_address = addrItem.province+addrItem.city+addrItem.district+addrItem.address
             cur_name = addrItem.signer_name
             cur_mobile = addrItem.signer_mobile
+            cur_identity = addrItem.signer_identity
           }
         });
         this.address = cur_address
         this.signer_mobile = cur_mobile
         this.signer_name = cur_name
+        this.signer_identity = cur_identity
       },
       balanceCount () { // 结算
           if(this.addrInfo.length==0){
               alert("请选择收货地址")
           }else{
+            console.log('this.windows');
+            console.log(this.windows);            
             createOrder(
               {
                 post_script:this.post_script,
                 address:this.address,
                 signer_name:this.signer_name,
-                singer_mobile:this.signer_mobile,
+                signer_mobile:this.signer_mobile,
+                signer_identity:this.signer_identity,
+                get_way:this.get_way,
+                windows:this.windows,
                 order_mount:this.totalPrice
               }
             ).then((response)=> {
@@ -368,7 +393,7 @@
     background-color:#fff
   }
   .goods-list li {
-  +display:inline;
+  display:inline;
     zoom:1;
     width:1006px;
     border-bottom:1px dotted #cbcbcb;
@@ -438,13 +463,13 @@
   .goods-list li .price-one .time {
     color:#f30
   }
-  .goods-list li .nums {
+  .goods-list li .goods_num {
     padding-top:18px;
     width:128px;
     float:left;
     position:relative
   }
-  .goods-list li .nums span {
+  .goods-list li .goods_num span {
     float:left;
     display:block;
     visibility:hidden;
@@ -459,15 +484,15 @@
     overflow:hidden;
     line-height:18px
   }
-  .goods-list li .nums span:hover {
+  .goods-list li .goods_num span:hover {
     background-color:#fff
   }
-  .goods-list li .nums span.disabled {
+  .goods-list li .goods_num span.disabled {
     cursor:not-allowed;
     color:#ddd;
     background-color:#f1f1f1
   }
-  .goods-list li .nums input {
+  .goods-list li .goods_num input {
     float:left;
     width:30px;
     height:18px;
@@ -479,7 +504,7 @@
     color:#666;
     font-size:14px
   }
-  .goods-list li .nums .only1 {
+  .goods-list li .goods_num .only1 {
     margin-left:33px;
     font-size:14px
   }
@@ -516,17 +541,17 @@
   .goods-list li.multi-item .item-list div {
     margin-bottom:5px
   }
-  .goods-list li.hover .nums span {
+  .goods-list li.hover .goods_num span {
     visibility:visible
   }
-  .goods-list li.hover .nums input {
+  .goods-list li.hover .goods_num input {
     border-color:#e8e8e8;
     background:#Fff
   }
-  .goods-list li.disabled .nums span {
+  .goods-list li.disabled .goods_num span {
     visibility:hidden
   }
-  .goods-list li.disabled .nums input {
+  .goods-list li.disabled .goods_num input {
     background:0;
     border:0
   }

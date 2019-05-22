@@ -1,7 +1,9 @@
 from rest_framework import serializers
-from .models import Goods, Windows, PlaceCategory, GoodsImage, Staff
+from .models import Goods, Windows, PlaceCategory, GoodsImage, Banner, HotSearchWords, IndexAd
 from rest_framework import status
 from rest_framework.response import Response
+from django.db.models import Q
+
 
 class PlaceCategorySerializer3(serializers.ModelSerializer):
     class Meta:
@@ -26,7 +28,7 @@ class PlaceCategorySerializer(serializers.ModelSerializer):
 
 
 class WindowsSerializer(serializers.ModelSerializer):
-    kind = PlaceCategorySerializer()
+    kind = PlaceCategorySerializer2()
 
     class Meta:
         model = Windows
@@ -48,20 +50,38 @@ class GoodsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-# class StaffSerializer(serializers.ModelSerializer):
-#     windows = serializers.PrimaryKeyRelatedField(required=True, queryset=Windows.objects.all())
-#
-#     def validate_code(self, validated_data):
-#         mobile = validated_data["mobile"]
-#         code = validated_data["code"]
-#         windows = validated_data["windows"]
-#         content = {'please move along': '登录成功'}
-#         exists = Staff.objects.filter(mobile=mobile, code=code, windows=windows)
-#         if exists:
-#             return Response(content, status=status.HTTP_200_OK)
-#         else:
-#             raise serializers.ValidationError("用户不存在，请重新输入")
-#
-#     class Meta:
-#         model = Staff
-#         fields = "__all__"
+class HotWordsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HotSearchWords
+        fields = "__all__"
+
+
+class BannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Banner
+        fields = "__all__"
+
+
+class IndexCategorySerializer(serializers.ModelSerializer):
+    windows = WindowsSerializer(many=True)
+    goods = serializers.SerializerMethodField()
+    sub_cat = PlaceCategorySerializer2(many=True)
+    ad_goods = serializers.SerializerMethodField()
+
+    def get_ad_goods(self, obj):
+        goods_json = {}
+        ad_goods = IndexAd.objects.filter(window_id=obj.id, )
+        if ad_goods:
+            good_ins = ad_goods[0].goods
+            goods_json = GoodsSerializer(good_ins, many=False, context={'request': self.context['request']}).data
+        return goods_json
+
+    def get_goods(self, obj):
+        all_goods = Goods.objects.filter(Q(window_id=obj.id) | Q(window__kind_id=obj.id) | Q(
+            window__kind__place_category_id=obj.id))
+        goods_serializer = GoodsSerializer(all_goods, many=True, context={'request': self.context['request']})
+        return goods_serializer.data
+
+    class Meta:
+        model = PlaceCategory
+        fields = "__all__"

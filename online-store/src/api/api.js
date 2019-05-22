@@ -12,7 +12,7 @@ export const queryCategorygoods = params => { return axios.get(`${local_host}/in
 export const newGoods = params => { return axios.get(`${local_host}/newgoods/`) }
 
 //获取轮播图
-export const bannerGoods = params => { return axios.get(`${host}/banners/`) }
+export const bannerGoods = params => { return axios.get(`${local_host}/banners/`) }
 
 //获取商品类别信息
 export const getCategory = params => {
@@ -53,16 +53,16 @@ export const getWindowsDetail = windowId => { return axios.get(`${local_host}/wi
 
 
 //商品详情
-export const getGoodsDetail = goodId => { return axios.get(`${local_host}/goods/${goodId}`+'/') } //为什么要=goolid呀后端直接在url加id就可以过滤
+export const getGoodsDetail = goodId => { return axios.get(`${local_host}/goods/${goodId}`+'/') } 
 
 //获取购物车商品
-export const getShopCarts = params => { return axios.get(`${host}/shopcarts/`) }
+export const getShopCarts = params => { return axios.get(`${local_host}/shopcarts/`) }
 // 添加商品到购物车
-export const addShopCart = params => { return axios.post(`${host}/shopcarts/`, params) }
+export const addShopCart = params => { return axios.post(`${local_host}/shopcarts/`, params) }
 //更新购物车商品信息
-export const updateShopCart = (goodsId, params) => { return axios.patch(`${host}/shopcarts/`+goodsId+'/', params) }
+export const updateShopCart = (goodsId, params) => { return axios.patch(`${local_host}/shopcarts/`+goodsId+'/', params) }
 //删除某个商品的购物记录
-export const deleteShopCart = goodsId => { return axios.delete(`${host}/shopcarts/`+goodsId+'/') }
+export const deleteShopCart = goodsId => { return axios.delete(`${local_host}/shopcarts/`+goodsId+'/') }
 
 //收藏商品
 export const addGoodsFav = params => { return axios.post(`${local_host}/goodsfav/`, params) }
@@ -100,20 +100,20 @@ export const register = parmas => { return axios.post(`${local_host}/users/`, pa
 
 
 //获取用户信息
-export const getUserDetail = () => { return axios.get(`${host}/users/1/`) }
+export const getUserDetail = () => { return axios.get(`${local_host}/users/1/`) }
 
 //修改用户信息
-export const updateUserInfo = params => { return axios.patch(`${host}/users/1/`, params) }
+export const updateUserInfo = params => { return axios.patch(`${local_host}/users/1/`, params) }
 
 
 //获取订单
-export const getOrders = () => { return axios.get(`${host}/orders/`) }
+export const getOrders = () => { return axios.get(`${local_host}/orders/`) }
 //删除订单
-export const delOrder = orderId => { return axios.delete(`${host}/orders/`+orderId+'/') }
+export const delOrder = orderId => { return axios.delete(`${local_host}/orders/`+orderId+'/') }
 //添加订单
-export const createOrder = params => {return axios.post(`${host}/orders/`, params)}
+export const createOrder = params => {return axios.post(`${local_host}/orders/`, params)}
 //获取订单详情
-export const getOrderDetail = orderId => {return axios.get(`${host}/orders/`+orderId+'/')}
+export const getOrderDetail = orderId => {return axios.get(`${local_host}/orders/`+orderId+'/')}
 
 
 //获取留言
@@ -136,3 +136,9 @@ export const updateAddress = (addressId, params) => {return axios.patch(`${local
 
 //获取收货地址
 export const getAddress = () => {return axios.get(`${local_host}/address/`)}
+
+//获取员工所在窗口
+export const getStaff = () => {return axios.get(`${local_host}/staff/`)}
+
+//获取窗口留言
+export const getStaffMessage = windowsId => {return axios.get(`${local_host}/staffmessage/?windows=`+windowsId+'/')}

@@ -6,17 +6,17 @@
                 <div class="series_name name_hufu">
                     <h2>{{items.name}}</h2>
                 </div>
-                <ul class="brand">
+                <ul class="window">
 
-                    <li v-for="brand in items.brands">
-                       <router-link :to="'/app/home/list/'+brand.id" >
-                       <a :title="brand.name" target="_blank">
-                            <img :src="brand.image" :alt="brand.name" style="display: inline;">
+                    <li v-for="window in items.windows">
+                       <router-link :to="'/app/home/windowlist/'+window.id" >
+                       <a :title="window.name" target="_blank">
+                            <img :src="window.windows_front_image" :alt="window.name" style="display: inline;">
                         </a>
                         </router-link>
                     </li>
                 </ul>
-                <div class="brand_cata">
+                <div class="window_cata">
                    <router-link  v-for="label in items.sub_cat" :key="label.id" :title="label.name"   :to="'/app/home/list/'+label.id"  >
                     {{label.name}}
                     </router-link>
@@ -38,7 +38,7 @@
                                  </p>
                                 <h3>{{list.name}}</h3>
                                 <p class="price">
-                                    ￥{{list.shop_price}}元
+                                    ￥{{list.price}}元
                                 </p>
                             </router-link>
                          </li>
@@ -243,26 +243,26 @@ canvas {
     float:left;
     overflow:hidden
 }
-.series_info .brand {
+.series_info .window {
     border-left:1px solid #ccc;
     padding:8px 0;
     border-right:1px solid #ccc
 }
-.series_info .brand li {
+.series_info .window li {
     padding:10px 0;
     height:50px;
     overflow:hidden;
     text-align:center
 }
-.series_info .brand li img {
+.series_info .window li img {
     width:100px;
     height:50px;
     vertical-align:top
 }
-.series_info .brand li img:hover {
+.series_info .window li img:hover {
     -webkit-animation:imgShark 1s
 }
-.series_info .brand_cata {
+.series_info .window_cata {
     padding:12px 0 12px 12px;
     height:73px;
     overflow:hidden;
@@ -270,7 +270,7 @@ canvas {
     border-left:1px solid #ccc;
     border-right:1px solid #ccc
 }
-.series_info .brand_cata a {
+.series_info .window_cata a {
     display:inline-block;
     font-size:13px;
     height:24px;

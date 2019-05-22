@@ -46,7 +46,6 @@ import collection from '../views/member/collection'
 import userinfo from '../views/member/userinfo'
 import register from '../views/register/register'
 
-
 // var head = function(resolve) {
 //   require.ensure(['../views/head/head'], () => {
 //     resolve(require('../views/head/head'))
@@ -305,7 +304,7 @@ var router = new Router({
                 }
               },
             ]
-          }
+          },
         ]
       },
       {

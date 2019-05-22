@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from .models import UserGoodsFav, UserWindowsFav, UserAddress, LeavingMessage
+from .models import UserGoodsFav, UserWindowsFav, UserAddress, LeavingMessage, Goods, Windows
 from goods.serializers import GoodsSerializer, WindowsSerializer
 from rest_framework.validators import UniqueTogetherValidator
 from rest_framework.permissions import IsAuthenticated
+from goods.serializers import GoodsSerializer
 
 
 class UserGoodsFavSerializer(serializers.ModelSerializer):
@@ -10,6 +11,7 @@ class UserGoodsFavSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
     )
+    goods = serializers.PrimaryKeyRelatedField(required=True, many=True, queryset=Goods.objects.all())
 
     class Meta:
         model = UserGoodsFav
@@ -51,6 +53,15 @@ class LeavingMessageSerializer(serializers.ModelSerializer):
         fields = ("user", "msg_type", "subject", "message", "file", "id", "add_time", "windows")
 
 
+class LeavingMessageDetailSerializer(serializers.ModelSerializer):
+    windows = WindowsSerializer()
+    add_time = serializers.DateTimeField(read_only=True, format='%Y-%m-%d %H:%M')
+
+    class Meta:
+        model = LeavingMessage
+        fields = ("msg_type", "subject", "message", "file", "id", "add_time", "windows")
+
+
 class AddressSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
@@ -59,4 +70,25 @@ class AddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserAddress
-        fields = ("id", "user", "district", "address", "signer_name", "add_time", "signer_mobile")
+        fields = ("id", "user", "district", "address", "signer_name", "add_time", "signer_mobile", "province", "city",
+                  "signer_identity")
+
+
+class UserGoodsFavDetailSerializer(serializers.ModelSerializer):
+    goods = GoodsSerializer()
+
+    class Meta:
+        model = UserGoodsFav
+        fields = ("goods", "id")
+
+
+class StaffLeavingMessageSerializer(serializers.ModelSerializer):
+    # user = serializers.HiddenField(
+    #     default=serializers.CurrentUserDefault()
+    # )
+    windows = serializers.PrimaryKeyRelatedField(required=True, queryset=Windows.objects.all())
+    add_time = serializers.DateTimeField(read_only=True, format='%Y-%m-%d %H:%M')
+
+    class Meta:
+        model = LeavingMessage
+        fields = ("user", "msg_type", "subject", "message", "file", "id", "add_time", "windows")

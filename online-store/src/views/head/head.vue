@@ -31,7 +31,7 @@
     <div class="hd_main cle">
         <div class="logo">
         <router-link to="/app/home/index" class="lizi_logo">
-            <img src="../../static/images/head/logo.gif" alt="慕学生鲜商城">
+            <img src="../../static/images/head/logo.jpg" alt="食堂预订管理系统"><h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订餐入口</h6>
         </router-link>
 
         </div>
@@ -56,7 +56,7 @@
                     <p>购物有保障</p>
                 </a></li>
                 <li class="no3"><a href="javascript:void(0);" target="_blank">
-                    <h4>满99就包邮</h4>
+                    <h4>免运费商品</h4>
                     <p>闪电发货</p>
                 </a></li>
             </ul>
@@ -119,7 +119,7 @@
                                 <dt><router-link :to="'/app/home/productDetail/'+item.goods.id" target = _blank><img :src="item.goods.goods_front_image"></router-link></dt>
                                 <dd>
                                   <h4><router-link :to="'/app/home/productDetail/'+item.goods.id" target = _blank>{{item.goods.name}}</router-link></h4>
-                                  <p><span class="red">{{item.goods.price}}</span>&nbsp;<i>X</i>&nbsp;{{item.nums}}</p>
+                                  <p><span class="red">{{item.goods.price}}</span>&nbsp;<i>X</i>&nbsp;{{item.goods_num}}</p>
                                   <a title="删除" class="iconfont del" @click="deleteGoods(index,item.goods.id)">×</a></dd>
                               </dl>
                             </div>
@@ -227,7 +227,7 @@ export default {
         getHotSearch(){//获取热搜
           getHotSearch()
                 .then((response)=> {
-                    this.hotSearch = response.data.results
+                    this.hotSearch = response.data
                 })
                 .catch(function (error) {
                   console.log(error);
@@ -236,7 +236,7 @@ export default {
     },
     created(){
         this.getMenu()//获取菜单
-        this.getHotSearch()//获取热词
+        // this.getHotSearch()//获取热词
         // 更新store数据
         this.$store.dispatch('setShopList');//获取购物车数据
     },

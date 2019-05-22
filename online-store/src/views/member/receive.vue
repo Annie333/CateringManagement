@@ -34,6 +34,11 @@
                                     <td align="left" bgcolor="#ffffff"><input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="item.signer_mobile"><span :class = "{error:item.signer_mobile==''}">(必填)</span></td>
                                 </tr>
                                 <tr>
+
+                                    <td align="right" bgcolor="#ffffff">身份号码：</td>
+                                    <td align="left" bgcolor="#ffffff"><input name="identity" type="text" class="inputBg" id="identity_0" v-model="item.signer_identity"><span :class = "{error:item.signer_identity==''}">(必填)</span></td>
+                                </tr>
+                                <tr>
                                     <td align="right" bgcolor="#ffffff">&nbsp;</td>
                                     <td colspan="3" align="center" bgcolor="#ffffff">
                                     <!-- <input type="submit" name="submit" class="bnt_blue_2" value="新增收货地址"> -->
@@ -73,6 +78,11 @@
 
                                     <td align="right" bgcolor="#ffffff">手机：</td>
                                     <td align="left" bgcolor="#ffffff"><input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="newInfo.signer_mobile"><span :class = "{error:newInfo.signer_mobile==''}">(必填)</span></td>
+                                </tr>
+                                <tr>
+
+                                    <td align="right" bgcolor="#ffffff">身份号码：</td>
+                                    <td align="left" bgcolor="#ffffff"><input name="identity" type="text" class="inputBg" id="identity_0" v-model="newInfo.signer_identity"><span :class = "{error:newInfo.signer_identity==''}">(必填)</span></td>
                                 </tr>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">&nbsp;</td>

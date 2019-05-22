@@ -116,7 +116,8 @@ class PermissionAdmin(object):
     show_name.is_column = True
 
     model_icon = 'fa fa-lock'
-    list_display = ('show_name', )
+    list_display = ('show_name',)
+
 
 site.register(Group, GroupAdmin)
 site.register(User, UserAdmin)
@@ -162,13 +163,16 @@ class ModelPermissionPlugin(BaseAdminPlugin):
             list_display.remove(self.user_owned_objects_field)
         return list_display
 
+
 site.register_plugin(ModelPermissionPlugin, ModelAdminView)
 
 
 class AccountMenuPlugin(BaseAdminPlugin):
 
     def block_top_account_menu(self, context, nodes):
-        return '<li><a href="%s"><i class="fa fa-key"></i> %s</a></li>' % (self.get_admin_url('account_password'), _('Change Password'))
+        return '<li><a href="%s"><i class="fa fa-key"></i> %s</a></li>' % (
+        self.get_admin_url('account_password'), _('Change Password'))
+
 
 site.register_plugin(AccountMenuPlugin, CommAdminView)
 

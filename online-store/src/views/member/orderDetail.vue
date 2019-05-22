@@ -41,9 +41,9 @@
                                     <router-link  :to="'/app/home/productDetail/'+item.id" class="f6">{{item.goods.name}}</router-link>
                                     <!-- <a href="" target="_blank" class="f6">{{item.name}}</a> -->
                                 </td>
-                                <td align="center" bgcolor="#ffffff">￥{{item.goods.shop_price}}元</td>
+                                <td align="center" bgcolor="#ffffff">￥{{item.goods.price}}元</td>
                                 <td align="center" bgcolor="#ffffff">{{item.goods_num}}</td>
-                                <td align="center" bgcolor="#ffffff">￥{{item.goods.shop_price*item.goods_num}}元</td>
+                                <td align="center" bgcolor="#ffffff">￥{{item.goods.price*item.goods_num}}元</td>
                             </tr>
                             <tr>
                                 <td colspan="8" bgcolor="#ffffff" align="right">
@@ -64,13 +64,13 @@
                                 <td width="35%" align="left" bgcolor="#ffffff"><input name="consignee" type="text" class="inputBg" v-model="orderInfo.signer_name" size="25">
                                 </td>
                                 <td width="15%" align="right" bgcolor="#ffffff">收货地址： </td>
-                                <td width="35%" align="left" bgcolor="#ffffff"><input name="email" type="text" class="inputBg" v-model="orderInfo.address" size="25">
+                                <td width="35%" align="left" bgcolor="#ffffff"><input name="address" type="text" class="inputBg" v-model="orderInfo.address" size="25">
                                 </td>
                             </tr>
 
                             <tr>
                                 <td align="right" bgcolor="#ffffff">电话： </td>
-                                <td align="left" bgcolor="#ffffff"><input name="address" type="text" class="inputBg" v-model="orderInfo.singer_mobile" size="25"></td>
+                                <td align="left" bgcolor="#ffffff"><input name="mobile" type="text" class="inputBg" v-model="orderInfo.signer_mobile" size="25"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -139,7 +139,7 @@
                     this.orderInfo = response.data;
                     var totalPrice = 0
                     response.data.goods.forEach(function(entry) {
-                      totalPrice += entry.goods_num*entry.goods.shop_price
+                      totalPrice += entry.goods_num*entry.goods.price
                     });
                     this.totalPrice = totalPrice
 

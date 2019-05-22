@@ -193,7 +193,7 @@ import { getGoodsDetail, getGoodsFav, addGoodsFav, delGoodsFav, addShopCart,getS
         addShoppingCart () { //加入购物车
             addShopCart({
                 goods: this.productId, // 商品id
-                nums: this.buyNum, // 购买数量
+                goods_num: this.buyNum, // 购买数量
             }).then((response)=> {
                 this.$refs.model.setShow();
                 // 更新store数据

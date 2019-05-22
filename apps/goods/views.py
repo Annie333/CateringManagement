@@ -1,24 +1,16 @@
-from coreapi.auth import TokenAuthentication
-from django.shortcuts import render
+
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status
-from rest_framework.views import APIView
-from goods.serializers import GoodsSerializer, PlaceCategorySerializer, WindowsSerializer
-from rest_framework.response import Response
-from .models import Goods, PlaceCategory, Windows, Staff
+
+from goods.serializers import GoodsSerializer, PlaceCategorySerializer, WindowsSerializer, BannerSerializer, \
+    HotWordsSerializer, IndexCategorySerializer
+from .models import Goods, PlaceCategory, Windows,  Banner, HotSearchWords
 from rest_framework import mixins
-from rest_framework import generics
-from rest_framework import viewsets
+
 from rest_framework import filters
 from goods.filters import GoodsFilter, WindowsFilter
-from django.db.models import Q
-from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth import get_user_model
+
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.mixins import CreateModelMixin
-from rest_framework_jwt.serializers import jwt_encode_handler, jwt_payload_handler
-from rest_framework import status
 
 # Create your views here.
 
@@ -31,11 +23,20 @@ class GoodsListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewset
     search_fields = ('name', 'goods_brief', 'goods_desc',)
     ordering_fields = ('sold_num', 'price')
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.click_num += 1
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
 
 class PlaceCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     list:
     商品分类数据
+    retrieve:
+    获取商品分类详情
     """
 
     queryset = PlaceCategory.objects.filter(category_type=1)
@@ -61,17 +62,25 @@ class WindowsListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
 #     queryset = Staff.objects.all()
 #     serializer_class = StaffSerializer
 
-# class HotSearchsViewset(mixins.ListModelMixin, viewsets.GenericViewSet):
-#     """
-#     获取热搜词列表
-#     """
-#     queryset = HotSearchWords.objects.all().order_by("-index")
-#     serializer_class = HotWordsSerializer
-#
-#
-# class BannerViewset(mixins.ListModelMixin, viewsets.GenericViewSet):
-#     """
-#     获取轮播图列表
-#     """
-#     queryset = Banner.objects.all().order_by("index")
-#     serializer_class = BannerSerializer
+class HotSearchsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    获取热搜词列表
+    """
+    queryset = HotSearchWords.objects.all().order_by("-index")
+    serializer_class = HotWordsSerializer
+
+
+class BannerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    获取轮播图列表
+    """
+    queryset = Banner.objects.all().order_by("index")
+    serializer_class = BannerSerializer
+
+
+class IndexCategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    首页商品分类数据
+    """
+    queryset = PlaceCategory.objects.filter(name__in=["紫荆园", "玫瑰园"])
+    serializer_class = IndexCategorySerializer

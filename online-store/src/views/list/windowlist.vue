@@ -123,7 +123,7 @@
                   });
                 }else {
                   getCategory({}).then((response)=> {
-                    this.cateMenu = response.data;
+                    this.cateMenu = response.data.results;
                     this.isObject = false
                   }).catch(function (error) {
                     console.log(error);

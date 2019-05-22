@@ -1,7 +1,7 @@
 <template>
     <div class="productlist">
         <ul class="cle">
-            <li v-for="item in listData" >
+            <li v-if='listData[0]' v-for="item in listData" >
                 <router-link :to="'/app/home/productDetail/'+item.id" target="_blank" class="productitem">
                     <span class="productimg">
                         <img width="150" height="150" :title="item.name" :alt="item.productname" :src="item.goods_front_image" style="display: block;">
@@ -46,8 +46,8 @@ import { getGoodsDetail, getGoods } from '../../../api/api';
         },
         created () {
             // this.productId = this.$route.params.productId;
-            // console.log(this.getGoodsDetail())//是不是那个productId写错了，可能是goodId呢
-            // this.item = this.getGoodsDetail() // 你的获取商品内容的方法在哪里啊
+            console.log(this.getGoodsDetail())
+            // this.item = this.getGoodsDetail() 
         },
         watch: {
 

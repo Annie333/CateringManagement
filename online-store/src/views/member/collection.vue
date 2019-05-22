@@ -61,7 +61,7 @@
   </div>
 </template>
 <script>
-  import {getAllGoodsFavs, delGoodsFav} from '../../api/api'
+  import {getAllGoodsFav, delGoodsFav} from '../../api/api'
     export default {
         data () {
             return {
@@ -102,7 +102,7 @@
         },
         methods: {
             getCollection () { //获取收藏列表
-              getAllGoodsFavs().then((response)=> {
+              getAllGoodsFav().then((response)=> {
                     this.collections = response.data;
                 }).catch(function (error) {
                     console.log(error);

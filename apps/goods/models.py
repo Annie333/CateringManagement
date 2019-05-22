@@ -33,7 +33,7 @@ class PlaceCategory(models.Model):
 
 class Windows(models.Model):
     name = models.CharField(max_length=10, null=True, blank=True, verbose_name="窗口名称")
-    kind = models.ForeignKey(PlaceCategory,  related_name='brands', null=True, blank=True, verbose_name="窗口类目",
+    kind = models.ForeignKey(PlaceCategory,  related_name='windows', null=True, blank=True, verbose_name="窗口类目",
                              on_delete=models.CASCADE)
     windows_front_image = models.ImageField(upload_to="windows/", null=True, blank=True, verbose_name="窗口图")
     windows_desc = models.TextField(default="", max_length=200, verbose_name="类别描述", help_text="类别描述")
@@ -47,23 +47,23 @@ class Windows(models.Model):
         return self.name
 
 
-class Staff(models.Model):
-    name = models.CharField(max_length=30, null=True, blank=True, verbose_name="姓名")
-    windows = models.ForeignKey(Windows, related_name='staff', null=True, verbose_name="员工所在窗口",
-                                on_delete=models.CASCADE)
-    birthday = models.DateField(null=True, blank=True, verbose_name="出生年月")
-    sex = models.CharField(max_length=6, choices=(("male", "男"), ("female", "女")), default="female", verbose_name="性别")
-    mobile = models.CharField(max_length=11, verbose_name="电话", unique=True, null=True, blank=True)
-    code = models.IntegerField(default="1234", verbose_name="密码")
-    enter_date = models.DateField(null=True, blank=True, verbose_name="入职时间")
-
-    class Meta:
-        verbose_name = "员工"
-        # 模型类的可读名称
-        verbose_name_plural = "员工"
-
-    def __str__(self):
-        return self.name
+# class Staff(models.Model):
+#     name = models.CharField(max_length=30, null=True, blank=True, verbose_name="姓名")
+#     windows = models.ForeignKey(Windows, related_name='staff', null=True, verbose_name="员工所在窗口",
+#                                 on_delete=models.CASCADE)
+#     birthday = models.DateField(null=True, blank=True, verbose_name="出生年月")
+#     sex = models.CharField(max_length=6, choices=(("male", "男"), ("female", "女")), default="female", verbose_name="性别")
+#     mobile = models.CharField(max_length=11, verbose_name="电话", unique=True, null=True, blank=True)
+#     code = models.IntegerField(default="1234", verbose_name="密码")
+#     enter_date = models.DateField(null=True, blank=True, verbose_name="入职时间")
+#
+#     class Meta:
+#         verbose_name = "员工"
+#         # 模型类的可读名称
+#         verbose_name_plural = "员工"
+#
+#     def __str__(self):
+#         return self.name
 
 
 class Goods(models.Model):
@@ -94,8 +94,9 @@ class Goods(models.Model):
     def __str__(self):
         return self.name
 
+
 class IndexAd(models.Model):
-    category = models.ForeignKey(PlaceCategory, related_name='category', verbose_name="商品类目", on_delete=models.CASCADE)
+    window = models.ForeignKey(Windows, related_name='window', verbose_name="商品类目", on_delete=models.CASCADE)
     goods = models.ForeignKey(Goods, related_name='goods', on_delete=models.CASCADE)
 
     class Meta:

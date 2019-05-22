@@ -34,3 +34,16 @@ class VerifyCode(models.Model):
         def __str__(self):
             return self.code
 
+
+class Staff(models.Model):
+    user = models.OneToOneField(UserProfile,verbose_name="用户", on_delete=models.CASCADE)
+    windows = models.ForeignKey(Windows, related_name='windows', null=True, verbose_name="员工所在窗口",
+                                on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "员工"
+        # 模型类的可读名称
+        verbose_name_plural = "员工"
+
+    def __str__(self):
+        return self.user.username
